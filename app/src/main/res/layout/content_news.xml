@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_news"
+    >
+
+  <ProgressBar
+      android:id="@+id/progressBar"
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:indeterminate="false"
+      android:progressDrawable="@drawable/progress_drawable"
+      android:visibility="invisible"
+      style="?android:attr/progressBarStyleHorizontal"
+      />
+
+  <android.support.v4.widget.SwipeRefreshLayout
+      android:id="@+id/swipeRefreshLayout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <com.tomeokin.cell.module.news.widget.ObservableWebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+  </android.support.v4.widget.SwipeRefreshLayout>
+
+  <!--<FrameLayout-->
+  <!--android:id="@id/bottomBar"-->
+  <!--android:layout_width="match_parent"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--android:orientation="horizontal"-->
+  <!--android:layout_alignParentBottom="true"-->
+  <!--&gt;-->
+
+  <!--<ImageView-->
+  <!--android:layout_width="wrap_content"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--android:src="@drawable/favour_outline_64"-->
+  <!--android:layout_gravity="end"-->
+  <!--/>-->
+
+  <!--<TextView-->
+  <!--android:layout_width="match_parent"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--/>-->
+
+  <!--</FrameLayout>-->
+
+</LinearLayout>

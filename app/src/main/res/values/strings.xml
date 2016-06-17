@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ArchSample</string>
+    <string name="title_activity_so">SoActivity</string>
+    <string name="title_activity_news">News</string>
+    <string name="loading_failed">数据加载失败</string>
+    <string name="title_activity_tag_editor">编辑标签</string>
+    <string name="submit">提交</string>
+</resources>

@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply from: '../config/quality/quality.gradle'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.tomeokin.archsample"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        textReport true
+        textOutput 'stdout'
+        ignore 'InvalidPackage'
+    }
+}
+
+dependencies {
+    final SUPPORT_LIBRARY_VERSION = '23.4.0'
+    final DAGGER_VERSION = '2.2'
+    final DEXMAKER_VERSION = '1.4'
+    final HAMCREST_VERSION = '1.3'
+    final ESPRESSO_VERSION = '2.2.1'
+    final RUNNER_VERSION = '0.4'
+    def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    def jUnit = "junit:junit:4.12"
+    def mockito = "org.mockito:mockito-core:1.10.19"
+    // App Dependencies
+    // app compat
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
+    // network
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    // eventbus
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.1.5'
+    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    // sqlite
+    compile 'com.squareup.sqlbrite:sqlbrite:0.6.3'
+    // bind library
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    // inject
+    compile "com.google.dagger:dagger:$DAGGER_VERSION"
+    apt daggerCompiler
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    //Required by Dagger2
+    // log
+    compile 'com.github.orhanobut:logger:1.12'
+    // other
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.thefinestartist:finestwebview:1.2.7'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
+    compile 'me.gujun.android.taggroup:library:1.4@aar'
+    // Instrumentation test dependencies
+    androidTestCompile jUnit
+    androidTestCompile mockito
+    androidTestCompile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$ESPRESSO_VERSION") {
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$ESPRESSO_VERSION"
+    androidTestCompile "com.android.support.test:runner:$RUNNER_VERSION"
+    androidTestCompile "com.android.support.test:rules:$RUNNER_VERSION"
+    androidTestCompile "com.crittercism.dexmaker:dexmaker:$DEXMAKER_VERSION"
+    androidTestCompile "com.crittercism.dexmaker:dexmaker-dx:$DEXMAKER_VERSION"
+    androidTestCompile "com.crittercism.dexmaker:dexmaker-mockito:$DEXMAKER_VERSION"
+    androidTestApt daggerCompiler
+    // Unit tests dependencies
+    testCompile jUnit
+    testCompile mockito
+    testCompile "org.hamcrest:hamcrest-core:$HAMCREST_VERSION"
+    testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
+    testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
+    testCompile 'org.robolectric:robolectric:3.0'
+    testApt daggerCompiler
+}
+
+// Log out test results to console
+tasks.matching {it instanceof Test}.all {
+    testLogging.events = ["failed", "passed", "skipped"]
+}
